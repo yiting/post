@@ -1,32 +1,47 @@
 ### 背景
 
-flexible box 伸縮容器 在 caniuse 上已經有很高的支持度
+在CSS3之前，
+CSS2.1定義了幾種的排版：
+區塊布局，設計給文件級布局（大區塊/區域）
+行內布局，設計給文字布局
+表格布局，設計給平面表格格式的資料
+定位布局，設計給不去考慮文件中其他元素，直接給一個明確的位置
 
-為什麼要講 flexible box 而不是 flex box，因為其實 flexible box 經過好幾次的演進
+由於近幾年開始流行 Web Page Application
+接踵而來產生彈性布局問題、屏幕解析度碎片化問題
+因此便衍生出了彈性布局
+flexible layout可以處理多種屏幕，不同螢幕解析度的元素定位
 
+
+這篇文章是要講flexible box而不是flex box...
+為什麼不是 flex box呢？
+
+其實 flexible box 經過好幾次的演進...
 從最初 2009 年的版本 `display: box` 和 `box-{*}` 的前綴屬性
 到 2011 年的版本 `display: flexbox` 和 `flex()` 的函數
 到最新 2012年 修訂的 CR 版本 `display: flex` 和 `flex-{*}` 的前綴屬性
 
-但是 flexible box 最新的版本在 iOS 8 以下和 Android 4.4 以下相容性並不好
+但是，
+flexible box 最新的版本 `display: flex` - 在 iOS 8 以下和 Android 4.4 以下相容性並不好
 
-反而是 2011 年的版本在 iOS 7 - 8 和 Android 4 - 4.3 各種平台 的兼容性相對較高 (包括微信的 X5 內核)
+反而是 2011 年的版本 `display: flexbox` - 在 iOS 7 ～ 8 和 Android 4 ～ 4.3 各種平台 的兼容性相對較高 (包括微信的 X5 內核)
 
 桌上型瀏覽器更不用說，除了舊 IE (6, 7, 8)不看以外，主流瀏覽器都已經有支援
 
-使用一個新的屬性(功能)最先考慮的覆蓋率 - 剛才這樣總結下來，最近兩種版本的規格兼容性已經有很高的比例
+使用一個新的屬性(功能)首先需要考慮覆蓋率 - 總結下來，2011、2012這兩個版本的規格兼容性方面已佔有很高的比例
 
-再加上 caniuse 上的 global 可使用數據已經超過 95%
+相較於2012版本的`display: flex`
+flexible box （伸縮容器）擁有更高的支持度
+根據 caniuse 上的資料顯示 Global 可使用率已經超過 95%
+![flexible box](https://farm2.staticflickr.com/1617/25656949421_8ac7820124_b.jpg)
 
-問題就是如何讓它「跨版本」，最通用的解決方法就是透過 PostCSS 提供的 (autoprefixer)[https://github.com/postcss/autoprefixer]
 
-使用 flexible box 最直接的六個理由
-1. 所有主流瀏覽器均支持
-2. 不必擔心語法（跨版本）
-3. 大部分時候只需要使用 `flex`, `justify-content` 和 `align-items` 這三種屬性
-4. 簡化子元素垂直水平居中的方法， `justify-content: center` 垂直居中和 `align-items: center` 水平居中
-5. 更容易地操作內嵌元素
-6. 簡化複雜的布局
+適時的使用flexible box除了可以簡化複雜的布局外，更可簡易操作内聯元素，另外亦可以透過justify-content: center、align-items: center這兩個屬性去實現元素的水平(垂直)居中，相較於其他布局下要達成相同效果所需撰寫的代碼量減少了許多。
+
+
+在不同情境、產品的考量下，所使用的flex版本可能有所不同，要怎樣讓彈性佈局可以「跨版本」正常實現，最通用的解決方法就是透過 PostCSS 所提供的(autoprefixer)[https://github.com/postcss/autoprefixer] 來達到。
+
+
 
 ### 相容性
 
@@ -46,38 +61,6 @@ iOS 7 - 8.4 (-webkit-) <br> iOS 9.2 之後 | Android 2.3 - 4.3 <br> (2009年舊f
   > 解決方法 - 使用 LESS/SASS mixin
 
 ### 範例
-
-1. `flex: flex-grow flex-shrink flex-basis | auto | initial | inherit;`
- > The flex property specifies the length of the item, relative to the rest of the flexible items inside the same container.
-
-  ![flex](http://i.imgur.com/GGqXMDo.png)
-
-2. flex-basis
-  > flex item 基本大小，會依照父元素大小改變。預設值為auto，依照flex item元素內容而定，若無內容則為0。
-
-  ```css
-  #flex-basis #basis-demo {
-    width: 450px;
-    height: 100px;
-    border: 1px solid #000;
-    display: flex;
-    display: -webkit-flex;
-    margin-top: 10px;
-  }
-  #flex-basis #basis-demo > div {
-    flex-basis: 50px;
-    -webkit-flex-basis: 50px;
-  }
-  #flex-basis #basis-demo #demo3 {
-    flex-basis: 120px;
-    -webkit-flex-basis: 120px;
-  }
-  #flex-basis #basis-demo #demo4 {
-    flex-basis: 25px;
-    -webkit-flex-basis: 25px;
-  }
-  ```
-  ![flex-basis](http://i.imgur.com/iEEvi98.png)
 
 ### 已知問題
 
@@ -103,3 +86,5 @@ iOS 7 - 8.4 (-webkit-) <br> iOS 9.2 之後 | Android 2.3 - 4.3 <br> (2009年舊f
 * 在 IE10 的伸縮容器中設置 `-ms-flex-flow: row wrap` 元素中的內容不會斷行，除非在子元素設置 `display: inline-block`
 
 * 在 IE11 的伸縮容器無法使用偽元素
+
+### 參考資料
