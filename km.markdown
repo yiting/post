@@ -1,5 +1,7 @@
 ### 背景
 
+會想要寫這篇文章，主要是因為目前網上大部分文章都是從flex的功能切入，而沒有說清楚兼容的邊界，而我們團隊在移動端QQ運動項目中常常因為`display:flex`這個屬性的相容性導致花了很多時間在聯調上。
+
 在CSS3之前，
 CSS2.1定義了幾種的排版：
 區塊布局，設計給文件級布局（大區塊/區域）;
@@ -16,6 +18,7 @@ flexible layout可以處理多種屏幕，不同螢幕解析度的元素定位
 這篇文章是要講flexible box而不是flex box...
 為什麼不是 flex box呢？
 
+* 歷史
 其實 flexible box 經過好幾次的演進...
 從最初 2009 年的版本 `display: box` 和 `box-{*}` 的前綴屬性
 到 2011 年的版本 `display: flexbox` 和 `flex()` 的函數
@@ -36,7 +39,7 @@ flexible box （伸縮容器）擁有更高的支持度
 ![flexible box](https://farm2.staticflickr.com/1617/25656949421_8ac7820124_b.jpg)
 
 
-適時的使用flexible box除了可以簡化複雜的布局外，更可簡易操作内聯元素，另外亦可以透過justify-content: center、align-items: center這兩個屬性去實現元素的水平(垂直)居中，相較於其他布局下要達成相同效果所需撰寫的代碼量減少了許多。
+適時的使用flexible box除了可以簡化複雜的布局外，更可簡易操作内聯元素，另外亦可以透過justify-content: center、align-items: center這兩個屬性去實現元素的水平(垂直)居中，相較於其他布局下要達成相同效果所需撰寫的代碼量確實減少了許多。
 
 
 在不同情境、產品的考量下，所使用的flex版本可能有所不同，要怎樣讓彈性佈局可以「跨版本」正常實現，最通用的解決方法就是透過 PostCSS 所提供的(autoprefixer)[https://github.com/postcss/autoprefixer] 來達到。
