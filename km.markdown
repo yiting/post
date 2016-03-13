@@ -9,7 +9,7 @@ CSS2.1定義了幾種的排版：
 表格布局，設計給平面表格格式的資料；
 定位布局，設計給不去考慮文件中其他元素，直接給一個明確的位置。
 
-由於近幾年開始流行 Web Page Application
+由於近幾年開始流行 Web Application
 接踵而來產生彈性布局問題、屏幕解析度碎片化問題
 因此便衍生出了彈性布局
 flexible layout可以處理多種屏幕，不同螢幕解析度的元素定位
@@ -63,7 +63,92 @@ iOS 7 - 8.4 (-webkit-) <br> iOS 9.2 之後 | Android 2.3 - 4.3 <br> (2009年舊f
 * 微信 x5 內核是基於 Android 4.2 的 Webkit 533/534 (約2010年)，所以伸縮布局 (Flexbox) 屬性部分支援舊的 syntax 語法，像 `flex-item-align` 或 `flex-line-pack`，而不是加 -webkit- 前綴
   > 解決方法 - 使用 LESS/SASS mixin
 
-### 範例
+
+### 實際應用
+* 應用1 - 彈性將頁面剩餘空白部分填滿。
+  使用屬性：
+  1. display: -webkit-box;
+  2. -webkit-box-orient: vertical;
+  3. -webkit-box-flex: 1;
+
+
+HTML代碼如下：
+```html
+//頁面最外層dom
+<div class="wrap">
+  //上半部頁面
+  ⋯⋯
+  //下半部頁面
+  <div class="no-data-wrap">
+    <div class="txt">呀，Ta还没有动态~</div>
+  </div>
+</div>
+```
+CSS代碼如下：
+```css
+.wrap {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  width: 100%;
+  height: 100%;
+  .no-data-wrap {
+    -webkit-box-flex: 1;
+  }
+}
+```
+
+執行結果：
+![QQ Sport 1](https://farm2.staticflickr.com/1569/25137038843_97198d9131_z.jpg)
+
+
+* 應用2 - 圖片自適應。
+  使用屬性：
+  1. display: -webkit-box;
+  2. -webkit-box-flex: 1;
+
+
+HTML代碼如下：
+```html
+<div class="m-carousel-wrap">
+  //Slider(4張照片)
+  <div class="m-carousel-list">
+    <div class="item">
+      <img src="http://placeholder.qiniudn.com/750x500">
+    </div>
+    <div class="item">
+      <img src="http://placeholder.qiniudn.com/750x500">
+    </div>
+    <div class="item">
+      <img src="http://placeholder.qiniudn.com/750x500">
+    </div>
+    <div class="item">
+      <img src="http://placeholder.qiniudn.com/750x500">
+    </div>
+  </div>
+  <!-- 切換索引 -->
+  ⋯⋯
+</div>
+```
+CSS代碼如下：
+```css
+.m-carousel-wrap {
+  width: 100%;
+  overflow: hidden;
+  .m-carousel-list {
+    display: -webkit-box;
+    width: 400%;
+    height: 100%;
+    .item {
+      -webkit-box-flex: 1;
+    }
+  }
+}
+```
+
+執行結果(iPhone 5s)：
+![QQ Sport 2](https://farm2.staticflickr.com/1690/25764167605_6966375e2d_z.jpg)
+
+
 
 ### 已知問題
 
